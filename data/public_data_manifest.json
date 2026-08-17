@@ -1,0 +1,31 @@
+{
+  "schema_version": "public-data.v1",
+  "scope": "scope_limited: mainly Journal of Law (法学), single-journal snapshot",
+  "evidence": {
+    "lexical_candidates": "A1/A2 body TOC; pending human review; not recommendations",
+    "keyword_router": "B-level metadata/abstract keywords; routing only"
+  },
+  "counts": {
+    "lexical_candidates_public": 1785,
+    "lexical_candidates_blocked_or_empty": 0,
+    "keyword_router_terms_public": 2039,
+    "private_pipeline_candidates": 1837,
+    "private_pipeline_recommendations": 0
+  },
+  "privacy": {
+    "raw_headings_included": false,
+    "abstract_spans_included": false,
+    "source_urls_included": false,
+    "local_paths_included": false
+  },
+  "outputs": {
+    "lexical_candidates.tsv": {
+      "sha256": "dd0a04112a9ab6008aca8002b7daf813db833612ab162b85ca08a143e5dde058",
+      "bytes": 1046781
+    },
+    "keyword_router_frequency.tsv": {
+      "sha256": "3606638cd35a39b124bded4b60f83136615e0c69692e5d2c3ac3e016677370d7",
+      "bytes": 70502
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "framework-edit-contract.v1",
+  "cases": [
+    {
+      "id": "normative_title_protection",
+      "input_headings": ["绪论", "研究背景与意义", "国内外研究现状", "结语"],
+      "expected": "preserve_exact"
+    },
+    {
+      "id": "semantic_expansion_trap",
+      "baseline": "讨论行政许可附款的程序保障、效力影响和救济方式。",
+      "unsupported_additions": ["听取意见", "部分无效", "行政复议"],
+      "expected": "reject_or_request_confirmation"
+    },
+    {
+      "id": "same_structure_token_swap",
+      "baseline_headings": ["问题提出与审查框架", "司法审查的程序路径", "裁量边界与制度完善"],
+      "revision_headings": ["审查对象", "司法审查的程序限度", "裁量边界与适用限度"],
+      "expected": "retry_if_chapter_tasks_and_derivation_are_unchanged"
+    },
+    {
+      "id": "dispute_term_hard_gate",
+      "invalid_term": "争点",
+      "replacement": "争议",
+      "expected": "zero_in_output"
+    },
+    {
+      "id": "humanizer_legal_boundary",
+      "portable_rules": ["删除填充短语", "清理模糊归因", "避免机械三分", "限制破折号"],
+      "nonportable_rules": ["强制第一人称", "加入幽默", "允许故意混乱"],
+      "expected": "preserve_legal_register"
+    }
+  ],
+  "structural_cases": [
+    {
+      "id": "nested_same_shape_token_swap",
+      "claim": "structural_change",
+      "baseline_outline": [
+        {"id":"c1","title":"问题提出与审查框架","children":[{"id":"a1","title":"审查对象"},{"id":"a2","title":"材料范围"}]},
+        {"id":"c2","title":"规范基础","children":[{"id":"b1","title":"权限依据"},{"id":"b2","title":"适用条件"}]},
+        {"id":"c3","title":"事实与程序","children":[{"id":"d1","title":"事实认定"},{"id":"d2","title":"程序参与"}]},
+        {"id":"c4","title":"效力判断","children":[{"id":"e1","title":"效力影响"},{"id":"e2","title":"处理方式"}]},
+        {"id":"c5","title":"救济与完善","children":[{"id":"f1","title":"救济方式"},{"id":"f2","title":"制度完善"}]}
+      ],
+      "revision_outline": [
+        {"id":"c1","title":"审查对象与材料边界","children":[{"id":"a1","title":"对象范围"},{"id":"a2","title":"材料限度"}]},
+        {"id":"c2","title":"规范依据","children":[{"id":"b1","title":"权限基础"},{"id":"b2","title":"适用要求"}]},
+        {"id":"c3","title":"事实和程序","children":[{"id":"d1","title":"事实判断"},{"id":"d2","title":"程序保障"}]},
+        {"id":"c4","title":"效力评价","children":[{"id":"e1","title":"效力后果"},{"id":"e2","title":"处理结果"}]},
+        {"id":"c5","title":"救济与限度","children":[{"id":"f1","title":"救济安排"},{"id":"f2","title":"适用限度"}]}
+      ],
+      "structural_diff": [{"action":"keep","old_id":"c1","new_id":"c1"}],
+      "expected": {"accepted":false,"classification":"token_swap_only"}
+    },
+    {
+      "id": "natural_progression_noop",
+      "claim": "retain_structure",
+      "baseline_outline": [
+        {"id":"c1","title":"规范对象","children":[{"id":"a1","title":"对象范围"}]},
+        {"id":"c2","title":"事实与程序","children":[{"id":"b1","title":"事实认定"},{"id":"b2","title":"程序参与"}]},
+        {"id":"c3","title":"效力判断","children":[{"id":"d1","title":"效力影响"}]},
+        {"id":"c4","title":"救济","children":[{"id":"e1","title":"救济方式"}]}
+      ],
+      "revision_outline": [
+        {"id":"c1","title":"审查对象","children":[{"id":"a1","title":"对象范围"}]},
+        {"id":"c2","title":"事实与程序","children":[{"id":"b1","title":"事实认定"},{"id":"b2","title":"程序参与"}]},
+        {"id":"c3","title":"效力判断","children":[{"id":"d1","title":"效力影响"}]},
+        {"id":"c4","title":"救济","children":[{"id":"e1","title":"救济方式"}]}
+      ],
+      "expected": {"accepted":true,"classification":"retain_structure"}
+    },
+    {
+      "id": "merge_required_evidence_bundle",
+      "claim": "structural_change",
+      "baseline_outline": [
+        {"id":"c1","title":"来源审查","children":[{"id":"a1","title":"原始载体"}]},
+        {"id":"c2","title":"技术审查","children":[{"id":"b1","title":"检测方法"}]},
+        {"id":"c3","title":"证明力","children":[{"id":"d1","title":"材料印证"}]}
+      ],
+      "revision_outline": [
+        {"id":"c1","title":"来源与技术审查","children":[{"id":"a1","title":"原始载体"},{"id":"b1","title":"检测方法"}]},
+        {"id":"c3","title":"证明力","children":[{"id":"d1","title":"材料印证"}]}
+      ],
+      "structural_diff": [{"action":"merge","old_id":"c2","new_id":"c1"}],
+      "expected": {"accepted":true,"classification":"structural_change"}
+    },
+    {
+      "id": "reorder_only",
+      "claim": "structural_change",
+      "baseline_outline": [
+        {"id":"c1","title":"对象","children":[]},
+        {"id":"c2","title":"事实","children":[]},
+        {"id":"c3","title":"救济","children":[]},
+        {"id":"c4","title":"效力","children":[]}
+      ],
+      "revision_outline": [
+        {"id":"c1","title":"对象","children":[]},
+        {"id":"c2","title":"事实","children":[]},
+        {"id":"c4","title":"效力","children":[]},
+        {"id":"c3","title":"救济","children":[]}
+      ],
+      "structural_diff": [{"action":"move","old_id":"c4","new_id":"c4"}],
+      "expected": {"accepted":true,"classification":"structural_change"}
+    }
+  ]
+}
