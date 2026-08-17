@@ -14,7 +14,21 @@
 
 ## public_data_manifest.json
 
-记录公开文件数量、过滤数量、证据等级和文件摘要。它不包含本机绝对路径。
+记录公开文件数量、过滤数量、证据等级和文件摘要。文本文件的字节数与摘要按UTF-8、LF换行规范化后计算，避免Windows、macOS和Linux换行差异造成误报。它不包含本机绝对路径。
+
+## title_patterns.jsonl
+
+保存从A1/A2正文目录中抽象出的结构骨架，不保存期刊原始标题、作者、链接或标题上下文。骨架只说明标题槽位、法律任务、适用研究类型和正反规则；全部为 `pending_human_review`，使用上限为 `structure_only`，不等于人工批准的生成推荐。
+
+## routing_index.json 与 routes/
+
+`routing_index.json` 按部门法、研究类型和标题层级指向小型静态分片。正常调用只读取匹配分片：
+
+- `routes/departments/`：B级关键词或用户输入负责路由，不提供正文目录层级和部门法篇数；
+- `routes/research-types/`：只选择与研究方法相符的结构骨架；
+- `routes/levels/`：只提供该级正文标题可用的结构骨架，层级依据来自A1/A2目录。
+
+静态路由不执行脚本，不联网，不写缓存，不需要Python或第三方库。索引和分片损坏时，Skill应退回规则诊断并报告未调用路由语料。
 
 ## 重建
 
@@ -25,5 +39,4 @@ python scripts/export_public_data.py `
   --out-dir data
 ```
 
-脚本只使用Python标准库。
-
+重建脚本只使用Python标准库；现有维护入口按Python 3.10+验证。PDF提取属于另一可选流程，需要PyMuPDF，不影响本目录的静态路由。

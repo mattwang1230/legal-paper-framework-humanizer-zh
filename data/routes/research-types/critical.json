@@ -1,0 +1,10 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "research_type",
+  "key": "critical",
+  "label": "批判研究与规范理论",
+  "control_sequence": ["列明既有命题", "提出具体反驳", "给出替代解释", "论证正当性", "说明适用限度"],
+  "preferred_pattern_ids": ["P001", "P002", "P003", "P010", "P016", "P017", "P018", "P020", "P026", "P028", "P029", "P030", "P031", "P032"],
+  "use_limit": "structure_selection_only",
+  "cautions": ["准确复述被批判命题。", "不得用创新、全面或系统等评价替代具体反驳。"]
+}

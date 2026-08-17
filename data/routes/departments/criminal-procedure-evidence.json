@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "criminal_procedure_evidence",
+  "label": "刑法、刑事诉讼与证据",
+  "route_terms": ["犯罪构成", "刑事责任", "刑事程序", "证明事项", "证据审查", "程序权利"],
+  "preferred_pattern_ids": ["P002", "P005", "P006", "P007", "P008", "P009", "P010", "P011", "P014", "P017", "P021", "P022", "P023", "P024"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["保持罪名、构成要件、证明事项和程序后果相互独立。", "不得以刑事政策替代罪刑规范。"]
+}

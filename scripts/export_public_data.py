@@ -13,12 +13,18 @@ from pathlib import Path
 BLOCKED_TERMS = ("界分", "生成链条", "争点")
 
 
+def canonical_text_bytes(path: Path) -> bytes:
+    text = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    return text.encode("utf-8")
+
+
 def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    return hashlib.sha256(canonical_text_bytes(path)).hexdigest()
+
+
+def nonempty_line_count(path: Path) -> int:
+    with path.open("r", encoding="utf-8") as handle:
+        return sum(1 for line in handle if line.strip())
 
 
 def compact_json(value: object) -> str:
@@ -137,12 +143,19 @@ def main() -> int:
     lexical_count, excluded_count = export_lexical(args.lexical_candidates, lexical_out)
     keyword_count = export_keywords(args.keyword_frequency, keyword_out)
 
+    title_patterns = args.out_dir / "title_patterns.jsonl"
+    routing_index = args.out_dir / "routing_index.json"
+    route_files = sorted(path for path in (args.out_dir / "routes").rglob("*") if path.is_file())
+    title_pattern_count = nonempty_line_count(title_patterns) if title_patterns.is_file() else 0
+
     manifest = {
-        "schema_version": "public-data.v1",
+        "schema_version": "public-data.v2",
         "scope": "scope_limited: mainly Journal of Law (法学), single-journal snapshot",
         "evidence": {
             "lexical_candidates": "A1/A2 body TOC; pending human review; not recommendations",
             "keyword_router": "B-level metadata/abstract keywords; routing only",
+            "title_patterns": "A1/A2 body-TOC-derived structural skeletons; no raw headings; pending human review",
+            "routing_shards": "static pattern selection by department, research type, and heading level",
         },
         "counts": {
             "lexical_candidates_public": lexical_count,
@@ -150,16 +163,43 @@ def main() -> int:
             "keyword_router_terms_public": keyword_count,
             "private_pipeline_candidates": 1837,
             "private_pipeline_recommendations": 0,
+            "title_patterns_public": title_pattern_count,
+            "routing_shards_public": len(route_files),
         },
         "privacy": {
             "raw_headings_included": False,
             "abstract_spans_included": False,
             "source_urls_included": False,
             "local_paths_included": False,
+            "raw_title_patterns_included": False,
         },
         "outputs": {
-            lexical_out.name: {"sha256": sha256(lexical_out), "bytes": lexical_out.stat().st_size},
-            keyword_out.name: {"sha256": sha256(keyword_out), "bytes": keyword_out.stat().st_size},
+            lexical_out.name: {"sha256": sha256(lexical_out), "bytes": len(canonical_text_bytes(lexical_out))},
+            keyword_out.name: {"sha256": sha256(keyword_out), "bytes": len(canonical_text_bytes(keyword_out))},
+            **(
+                {
+                    title_patterns.name: {
+                        "sha256": sha256(title_patterns),
+                        "bytes": len(canonical_text_bytes(title_patterns)),
+                    }
+                }
+                if title_patterns.is_file()
+                else {}
+            ),
+            **(
+                {
+                    routing_index.name: {
+                        "sha256": sha256(routing_index),
+                        "bytes": len(canonical_text_bytes(routing_index)),
+                    }
+                }
+                if routing_index.is_file()
+                else {}
+            ),
+            "routing_shards": {
+                "files": len(route_files),
+                "bytes": sum(len(canonical_text_bytes(path)) for path in route_files),
+            },
         },
     }
     manifest_path = args.out_dir / "public_data_manifest.json"
@@ -170,4 +210,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

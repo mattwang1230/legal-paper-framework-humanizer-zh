@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "administrative_regulation_public",
+  "label": "行政法、监管与公共法",
+  "route_terms": ["行政行为", "监管权限", "行政程序", "行政裁量", "行政复议", "司法审查"],
+  "preferred_pattern_ids": ["P002", "P004", "P010", "P011", "P012", "P017", "P021", "P022", "P023", "P024", "P028", "P029", "P030"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["先核验权限来源和程序条件，再判断法律后果。", "不得把监管目标写成法定权限。"]
+}

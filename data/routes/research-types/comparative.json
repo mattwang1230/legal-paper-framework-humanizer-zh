@@ -1,0 +1,10 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "research_type",
+  "key": "comparative",
+  "label": "比较法",
+  "control_sequence": ["确定本国法问题", "说明比较对象与功能", "解释制度差异", "审查本土适用限度"],
+  "preferred_pattern_ids": ["P003", "P011", "P024", "P025", "P026", "P030", "P032"],
+  "use_limit": "structure_selection_only",
+  "cautions": ["比较对象必须处理同类法律问题。", "域外制度不能替代本国法解释。"]
+}

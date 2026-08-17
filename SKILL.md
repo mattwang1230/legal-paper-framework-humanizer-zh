@@ -6,7 +6,7 @@ description: >-
   凡用户提到法学论文框架、论文目录、章节标题、法学化表达、机械四分法、标题对称、
   去AI腔、法教义学、案例研究、实证法学、比较法、制度构建或希望让法律论文更像学者写作，
   均使用本技能；不论具体部门法为何，也先判断研究类型、规范对象、证据上限和法律后果。
-compatibility: "只读诊断默认不改主文；写作任务可输出修订稿；公开版不附批量原始摘要或完整目录。语料分层按references/corpus_methodology.md和data/README.md执行；通用防AI规则见references/ai_language_defense.md。"
+compatibility: "只读诊断默认不改主文；写作任务可输出修订稿；公开版不附批量原始摘要或完整目录。运行时只读取UTF-8静态文件，不要求Python或第三方依赖；维护测试与语料重建另见README。语料分层按references/corpus_methodology.md和data/README.md执行；通用防AI规则见references/ai_language_defense.md。"
 metadata:
   language: zh-CN
   humanizer_level: medium
@@ -86,7 +86,19 @@ metadata:
 
 公开版不分发逐篇知识卡片、批量摘要或完整目录。需要生成论文正文目录时，优先使用用户提供且合法取得的A1全文或A2正文目录，并按一级、二级、三级分别取样；没有该类材料时，明确说明语料缺口，只做编辑性修改。`data/lexical_candidates.tsv` 只用于审计词语的层级、出现位置、任务标签和风险，全部为待人工审核候选，不能直接拼入标题。`data/keyword_router_frequency.tsv` 只用于领域路由。题名、摘要和关键词不得为正文目录提供层级或频次样本。词频高不等于适合所有题目，尤其要谨慎使用“体系、逻辑、机制、路径、模式、维度”等框架容器词。
 
-### 2.4.1 正文目录语料的调用顺序
+### 2.4.1 发布版静态路由
+
+正常调用先读取 `data/routing_index.json`，不扫描整个 `data/` 目录，也不运行检索脚本：
+
+1. 从用户输入判断部门法、研究类型和需要处理的标题层级；不明确的轴直接跳过，不为凑标签作机器推断。
+2. 按索引分别加载至多两个部门法文件、至多两个研究类型文件，以及用户确实要求处理的一级、二级或三级标题文件。
+3. 从层级文件取得结构骨架，再用部门法与研究类型文件中的 `preferred_pattern_ids` 取交集。交集为空时只保留层级允许的最小骨架，并补足具体法律对象。
+4. `data/title_patterns.jsonl` 是完整审计母表，日常生成不整表加载。其记录不含期刊原始标题，全部为 `pending_human_review` 且仅限 `structure_only`；不得把骨架、B级路由词或待审词语当作人工批准的标题推荐。
+5. 路由文件损坏或平台不能读取附带数据时，仍执行四层诊断、规范标题保护、硬禁用词和证据边界，并明确说明“未调用发布版路由语料”。不得联网补取或假装已检索。
+
+该路由只依赖Skill平台的本地文件读取能力；终端用户无需Python、数据库、网络、浏览器或第三方库。Python脚本仅供维护者提取、重建和测试，不能成为Skill正常生效的前提。
+
+### 2.4.2 正文目录语料的调用顺序
 
 1. 有论文PDF、HTML、DOCX或数据库导出的完整目录时，先用 `scripts/extract_toc.py` 提取；只有A1/A2记录中的 `level=1/2/3` 才能作为一级、二级、三级标题样本。生成目录时，三个层级分别取样，不以题名或摘要替代任何层级。
 2. 需要扩充语料时，再用 `scripts/build_toc_vocabulary.py` 生成词频表和统计报告。默认“超过五次”为至少6次；发布或共享前另做版权、链接和个人路径审计。
@@ -94,7 +106,7 @@ metadata:
 4. 对PDF或纯文本编号标题，保留 `needs_review=true` 并人工核对层级；不得依据“一、”“（一）”“1.”的外观机械推断层级。
 5. 生成新目录时，按研究类型、部门法和标题层级筛选语料：一级标题学习章节任务，二级标题学习规范对象与法律动作，三级标题学习构成要件、证明事项或适用限度。只借鉴经核验的句法和任务词，不拼接不同论文标题，不把某篇论文的结构当作强制模板。
 
-### 2.4.1.1 逐篇知识卡片调用
+### 2.4.2.1 逐篇知识卡片调用
 
 公开版没有逐篇知识卡片。若用户在本地自建卡片，每行/每张卡片应只对应一篇去重论文，`headings` 只包含已经取得并去重的A1/A2目录记录，`toc_status` 如实记录已取得、未尝试、页面无可读目录或安全验证阻断。生成框架时先以 `paper_id` 定位，再根据 `headings[].level` 选择相应层级；`abstract`、`keywords` 和题录字段不得补写空缺目录。
 
@@ -104,7 +116,7 @@ metadata:
 
 卡片数量是来源并集数量，不是全文阅读量；报告学习量时仍按A1、A2、B分层，且同时报告CNKI目标队列、官网摘要记录和正文目录论文数。
 
-### 2.4.2 摘要与关键词的调用顺序
+### 2.4.3 摘要与关键词的调用顺序
 
 1. 用户要求摘录摘要、核对研究对象或扩充术语语境时，只读取用户提供或用户有权访问的原始来源；公开仓库的 `data/keyword_router_frequency.tsv` 只提供B级聚合路由信息，不包含摘要原文。
 2. 每条摘要记录保留题名、作者、年份、期次、摘要、关键词、官方页面链接和`source_level=B`；摘要可支持摘要明示的研究问题、方法、对象或结论，但不支持正文完整观点。
@@ -322,5 +334,5 @@ metadata:
 
 ## 8. 测试入口
 
-公开版运行 `python -m unittest discover -s tests -v`，检查唯一Skill入口、公开数据数量、待审状态、敏感路径和不透明链接。结构声明另运行 `python scripts/validate_structural_edit.py tests/fixtures/framework_edit_contract.json`。主观风格、实体法准确性和候选是否可推荐仍需人工复核。
+使用Skill本身不需要Python。维护者可在Skill根目录运行 `python -m unittest discover -s tests -v`，检查唯一Skill入口、公开数据数量、静态路由、待审状态、敏感路径和不透明链接；macOS/Linux如无`python`命令则使用`python3`。结构声明另运行 `python scripts/validate_structural_edit.py tests/fixtures/framework_edit_contract.json`。现有维护脚本按Python 3.10+测试；PDF提取分支另需PyMuPDF，但与静态路由和Skill核心审改无关。主观风格、实体法准确性和候选是否可推荐仍需人工复核。
 

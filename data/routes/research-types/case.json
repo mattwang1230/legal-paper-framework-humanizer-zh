@@ -1,0 +1,10 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "research_type",
+  "key": "case",
+  "label": "案例与裁判研究",
+  "control_sequence": ["确定法律争议", "限定事实与证据", "审查裁判理由", "提炼规则命题", "说明适用限度"],
+  "preferred_pattern_ids": ["P001", "P002", "P005", "P006", "P007", "P008", "P009", "P010", "P011", "P012", "P013", "P014", "P015", "P016", "P017", "P018", "P019", "P020", "P021", "P022", "P023", "P024"],
+  "use_limit": "structure_selection_only",
+  "cautions": ["当事人主张、法院认定和裁判理由必须分开。", "不能从裁判结果反推文书未说明的理由。"]
+}

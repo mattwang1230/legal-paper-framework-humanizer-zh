@@ -1,22 +1,27 @@
 {
-  "schema_version": "public-data.v1",
+  "schema_version": "public-data.v2",
   "scope": "scope_limited: mainly Journal of Law (法学), single-journal snapshot",
   "evidence": {
     "lexical_candidates": "A1/A2 body TOC; pending human review; not recommendations",
-    "keyword_router": "B-level metadata/abstract keywords; routing only"
+    "keyword_router": "B-level metadata/abstract keywords; routing only",
+    "title_patterns": "A1/A2 body-TOC-derived structural skeletons; no raw headings; pending human review",
+    "routing_shards": "static pattern selection by department, research type, and heading level"
   },
   "counts": {
     "lexical_candidates_public": 1785,
     "lexical_candidates_blocked_or_empty": 0,
     "keyword_router_terms_public": 2039,
     "private_pipeline_candidates": 1837,
-    "private_pipeline_recommendations": 0
+    "private_pipeline_recommendations": 0,
+    "title_patterns_public": 32,
+    "routing_shards_public": 17
   },
   "privacy": {
     "raw_headings_included": false,
     "abstract_spans_included": false,
     "source_urls_included": false,
-    "local_paths_included": false
+    "local_paths_included": false,
+    "raw_title_patterns_included": false
   },
   "outputs": {
     "lexical_candidates.tsv": {
@@ -26,6 +31,18 @@
     "keyword_router_frequency.tsv": {
       "sha256": "3606638cd35a39b124bded4b60f83136615e0c69692e5d2c3ac3e016677370d7",
       "bytes": 70502
+    },
+    "title_patterns.jsonl": {
+      "sha256": "fa7eab926bacb84d3ef7ed21b78678e521f5e1865c250d0abcc8b3ff7ca46b78",
+      "bytes": 18402
+    },
+    "routing_index.json": {
+      "sha256": "1e19ae526de44d4da8f7a8de6424050a52afe214b175be1c2ea28de07a52385a",
+      "bytes": 4488
+    },
+    "routing_shards": {
+      "files": 17,
+      "bytes": 45527
     }
   }
 }

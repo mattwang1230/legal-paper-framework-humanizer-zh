@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "litigation_arbitration_review",
+  "label": "民事诉讼、行政诉讼、仲裁与司法审查",
+  "route_terms": ["管辖", "受理", "仲裁程序", "证明责任", "裁判效力", "司法审查", "承认与执行"],
+  "preferred_pattern_ids": ["P007", "P008", "P009", "P011", "P012", "P018", "P019", "P020", "P021", "P022", "P023", "P024"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["区分受理条件、实体判断、程序后果和救济。", "不得把仲裁规则、诉讼规则和内部程序相互替代。"]
+}

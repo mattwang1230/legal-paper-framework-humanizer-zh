@@ -1,0 +1,10 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "research_type",
+  "key": "institutional",
+  "label": "制度建构",
+  "control_sequence": ["说明制度功能", "识别运行缺口", "配置权限与程序", "判断法律效果", "提出制度方案"],
+  "preferred_pattern_ids": ["P002", "P004", "P012", "P014", "P015", "P021", "P022", "P023", "P024", "P026", "P028", "P029", "P030"],
+  "use_limit": "structure_selection_only",
+  "cautions": ["方案必须回应已证明的缺口。", "不得使用项目管理语言代替权限、程序和法律效果。"]
+}

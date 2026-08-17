@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "civil_commercial_economic",
+  "label": "民法、商法与经济法",
+  "route_terms": ["法律行为", "合同义务", "公司组织", "市场交易", "竞争秩序", "民事责任"],
+  "preferred_pattern_ids": ["P001", "P004", "P005", "P006", "P011", "P012", "P013", "P014", "P015", "P016", "P024", "P028", "P030"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["区分成立、效力、履行、责任和救济。", "不得把商业风险直接写成法律责任。"]
+}

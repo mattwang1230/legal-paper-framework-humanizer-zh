@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "labor_social_environment_resources",
+  "label": "劳动法、社会法、环境法与资源法",
+  "route_terms": ["劳动关系", "社会保障", "社会权", "环境义务", "资源权利", "公益救济"],
+  "preferred_pattern_ids": ["P002", "P004", "P005", "P011", "P012", "P014", "P015", "P017", "P022", "P024", "P028", "P029", "P030"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["明确受保护主体、法定义务、许可条件和救济。", "不得用政策目标替代具体权利义务。"]
+}

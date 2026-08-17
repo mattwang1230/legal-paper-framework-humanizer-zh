@@ -1,0 +1,10 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "research_type",
+  "key": "doctrinal",
+  "label": "法教义学与规范解释",
+  "control_sequence": ["确定规范对象", "核验规范依据", "解释构成要件或适用条件", "判断法律效果", "说明适用限度"],
+  "preferred_pattern_ids": ["P001", "P002", "P003", "P004", "P005", "P006", "P010", "P011", "P012", "P013", "P014", "P015", "P016", "P017", "P021", "P022", "P023", "P024", "P031", "P032"],
+  "use_limit": "structure_selection_only",
+  "cautions": ["解释方法必须服务于具体规范结论。", "没有概念歧义时不增设概念章。"]
+}

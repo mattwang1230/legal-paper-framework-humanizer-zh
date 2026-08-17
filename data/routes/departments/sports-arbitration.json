@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "sports_arbitration",
+  "label": "体育法与体育仲裁",
+  "route_terms": ["体育自治", "参赛资格", "纪律处罚", "体育仲裁", "正当程序", "裁决审查"],
+  "preferred_pattern_ids": ["P002", "P004", "P007", "P011", "P012", "P017", "P019", "P020", "P021", "P022", "P023", "P024"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["区分体育规则适用、内部程序、仲裁程序和司法审查。", "不得补写未公开的案件事实或裁决理由。"]
+}

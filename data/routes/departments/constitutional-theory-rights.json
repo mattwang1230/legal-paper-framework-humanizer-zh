@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "constitutional_theory_rights",
+  "label": "宪法、法理与基本权利",
+  "route_terms": ["宪法", "法理", "基本权利", "国家义务", "权利限制", "比例审查"],
+  "preferred_pattern_ids": ["P001", "P002", "P003", "P010", "P017", "P021", "P022", "P024", "P029", "P031", "P032"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["价值判断必须落实到权利、义务或审查标准。", "不得用政策目标替代规范依据。"]
+}

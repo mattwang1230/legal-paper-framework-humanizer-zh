@@ -1,0 +1,54 @@
+{
+  "schema_version": "legal-title-routing.v1",
+  "purpose": "按部门法、研究类型和正文标题层级加载最小必要的公开派生文件。",
+  "runtime": {
+    "script_required": false,
+    "third_party_dependencies": [],
+    "encoding": "UTF-8",
+    "path_mode": "relative_to_skill_root"
+  },
+  "evidence_boundary": {
+    "department_routing": "B级关键词只负责领域路由，不提供正文目录层级或实体法结论。",
+    "pattern_basis": "结构骨架由A1/A2正文目录抽象派生，不含期刊原始标题。",
+    "generation_limit": "骨架只约束标题结构；不得新增事实、案例、法条、文献或法律结论。"
+  },
+  "load_protocol": [
+    "先判断部门法、研究类型和需要处理的标题层级。",
+    "每个明确轴只加载其file字段指向的小文件；整篇框架可以加载多个层级文件。",
+    "从层级文件取得骨架定义，再用部门法文件和研究类型文件中的preferred_pattern_ids取交集。",
+    "交集为空时保留层级文件中的最小骨架，但必须补足具体法律对象并遵守证据上限。",
+    "日常生成不加载data/title_patterns.jsonl；该文件只用于完整审计、维护和一致性测试。",
+    "部门法或研究类型不明确时跳过该轴，不得为凑路由加载全部文件。"
+  ],
+  "multi_label_policy": {
+    "departments": "确属交叉研究时最多加载两个部门法文件，并说明主次。",
+    "research_types": "混合研究最多加载两个研究类型文件；以承担中心命题的方法为主。",
+    "levels": "只加载用户要求修改的层级；全框架审改可加载一级、二级、三级三个文件。"
+  },
+  "audit_master": "data/title_patterns.jsonl",
+  "axes": {
+    "departments": {
+      "constitutional_theory_rights": {"aliases": ["宪法", "法理", "基本权利", "国家义务"], "file": "data/routes/departments/constitutional-theory-rights.json"},
+      "administrative_regulation_public": {"aliases": ["行政法", "监管", "公共法", "行政诉讼前规范审查"], "file": "data/routes/departments/administrative-regulation-public.json"},
+      "civil_commercial_economic": {"aliases": ["民法", "商法", "经济法", "公司法", "合同法", "竞争法"], "file": "data/routes/departments/civil-commercial-economic.json"},
+      "criminal_procedure_evidence": {"aliases": ["刑法", "刑事诉讼", "刑事证据", "犯罪论"], "file": "data/routes/departments/criminal-procedure-evidence.json"},
+      "litigation_arbitration_review": {"aliases": ["民事诉讼", "行政诉讼", "仲裁", "司法审查", "执行"], "file": "data/routes/departments/litigation-arbitration-review.json"},
+      "labor_social_environment_resources": {"aliases": ["劳动法", "社会法", "社会保障", "环境法", "资源法"], "file": "data/routes/departments/labor-social-environment-resources.json"},
+      "international_comparative_digital_ip": {"aliases": ["国际法", "比较法", "数字法", "数据法", "平台法", "知识产权法"], "file": "data/routes/departments/international-comparative-digital-ip.json"},
+      "sports_arbitration": {"aliases": ["体育法", "体育仲裁", "体育纪律", "体育组织"], "file": "data/routes/departments/sports-arbitration.json"}
+    },
+    "research_types": {
+      "doctrinal": {"aliases": ["法教义学", "规范解释", "教义学"], "file": "data/routes/research-types/doctrinal.json"},
+      "case": {"aliases": ["案例研究", "裁判研究", "类案研究"], "file": "data/routes/research-types/case.json"},
+      "empirical": {"aliases": ["实证法学", "经验研究", "数据研究"], "file": "data/routes/research-types/empirical.json"},
+      "comparative": {"aliases": ["比较法", "域外法", "制度比较"], "file": "data/routes/research-types/comparative.json"},
+      "institutional": {"aliases": ["制度建构", "制度完善", "监管制度"], "file": "data/routes/research-types/institutional.json"},
+      "critical": {"aliases": ["规范批判", "理论反思", "命题反驳"], "file": "data/routes/research-types/critical.json"}
+    },
+    "levels": {
+      "1": {"aliases": ["一级标题", "章标题", "章节标题"], "file": "data/routes/levels/level-1.jsonl"},
+      "2": {"aliases": ["二级标题", "节标题"], "file": "data/routes/levels/level-2.jsonl"},
+      "3": {"aliases": ["三级标题", "目标题", "小标题"], "file": "data/routes/levels/level-3.jsonl"}
+    }
+  }
+}

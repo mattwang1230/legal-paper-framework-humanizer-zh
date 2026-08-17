@@ -26,6 +26,13 @@
 
 原始批量摘要、完整目录、逐篇知识卡片和带查询参数的数据库链接不随仓库分发。仓库公开的是规则、方法、统计、可重建脚本、合成测试，以及删除原文上下文和链接后的派生候选词表。
 
+## 结构骨架与轻量路由
+
+- `data/title_patterns.jsonl` 保存32项“规范对象＋法律动作”“适用条件＋法律后果”等抽象骨架，不保存期刊原始标题；全部只用于结构审计，仍待人工审核。
+- `data/routing_index.json` 按部门法、研究类型和标题层级指向小型静态分片。正常调用只读取匹配分片，不加载完整候选词表或完整骨架母表。
+- 部门法分片中的词只作B级路由，`paper_count`和`heading_count`保持空值；在完成逐篇人工领域归类前，不据此宣称各部门法正文目录篇数。
+- Skill运行不需要Python、数据库、网络或第三方库。路由由模型读取静态UTF-8文件完成；文件不可读时退回四层诊断并报告缺口。
+
 详见 [语料与证据方法](references/corpus_methodology.md) 和 [公开数据说明](data/README.md)。
 
 ## 安装
@@ -61,6 +68,8 @@ python -m unittest discover -s tests -v
 python scripts/validate_structural_edit.py tests/fixtures/framework_edit_contract.json
 ```
 
+测试和重建是维护者入口，按Python 3.10+验证；普通用户调用Skill无需运行。macOS/Linux可将`python`替换为`python3`。PDF提取分支另需PyMuPDF，但静态路由、四层诊断和框架审改不依赖它。
+
 内部R2隐藏题测试：82.88升至93.50，8/8样本不下降，8/8通过硬门；Skill契约测试10/10，词汇管线测试16/16，结构验证4/4。该分数来自同一主模型按统一量表的匿名比较，不等同于多名法学专家的绝对评分，也不保证所有论文取得相同提升。
 
 ## 自建目录语料
@@ -75,4 +84,3 @@ python scripts/build_toc_vocabulary.py --help
 ## 许可证与第三方材料
 
 代码、原创规则与文档使用 [MIT License](LICENSE)。《法学》、CNKI及其他第三方名称和材料的权利归各自权利人所有；本仓库不包含批量原始论文、完整摘要或完整目录。详见 [NOTICE](NOTICE.md)。
-

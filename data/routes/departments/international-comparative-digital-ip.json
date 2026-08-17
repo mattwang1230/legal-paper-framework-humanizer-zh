@@ -1,0 +1,13 @@
+{
+  "schema_version": "legal-title-route.v1",
+  "axis": "department",
+  "key": "international_comparative_digital_ip",
+  "label": "国际法、比较法、数字法与知识产权法",
+  "route_terms": ["条约义务", "冲突规范", "跨境管辖", "数据权益", "平台义务", "知识产权"],
+  "preferred_pattern_ids": ["P002", "P003", "P011", "P012", "P017", "P024", "P025", "P026", "P029", "P030", "P032"],
+  "source_level": "B",
+  "use_limit": "routing_and_pattern_filter_only",
+  "paper_count": null,
+  "heading_count": null,
+  "cautions": ["明确规范来源、法域关系和本国法问题。", "不得让技术趋势或域外制度替代法律分析。"]
+}
