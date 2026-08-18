@@ -106,7 +106,7 @@ class ReleaseTest(unittest.TestCase):
             for path in [ROOT / "data/title_patterns.jsonl", *sorted((ROOT / "data/routes").rglob("*"))]
             if path.is_file()
         )
-        for forbidden in ("界分", "生成链条", "争点"):
+        for forbidden in ("界分", "生成链条"):
             self.assertNotIn(forbidden, published_text)
 
     def test_static_routing_index_and_shards_are_consistent(self) -> None:

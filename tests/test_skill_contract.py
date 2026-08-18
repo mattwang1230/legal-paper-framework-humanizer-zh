@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 
 from scripts.validate_structural_edit import evaluate_case
+from scripts.export_public_data import BLOCKED_TERMS
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
@@ -29,11 +30,12 @@ class SkillContractTests(unittest.TestCase):
         for heading in case["input_headings"]:
             self.assertIn(heading, DEFENSE_TEXT)
 
-    def test_dispute_term_hard_gate_is_explicit(self):
-        case = next(item for item in FIXTURES["cases"] if item["id"] == "dispute_term_hard_gate")
-        self.assertEqual("争议", case["replacement"])
-        self.assertIn("输出不得使用“争点”", SKILL_TEXT)
-        self.assertIn("统一写“争议”", DEFENSE_TEXT)
+    def test_dispute_term_is_protected(self):
+        case = next(item for item in FIXTURES["cases"] if item["id"] == "dispute_term_protection")
+        self.assertEqual("preserve_when_contextually_accurate", case["expected"])
+        self.assertIn("“争点”属于可以保留的法学术语", SKILL_TEXT)
+        self.assertIn("原文准确使用“争点”时予以保留", DEFENSE_TEXT)
+        self.assertNotIn("争点", BLOCKED_TERMS)
 
     def test_humanizer_rules_are_selective(self):
         for pattern in ("填充短语", "模糊归因", "三段式", "否定式排比", "虚假范围", "同义词循环", "通用积极结论", "破折号"):
@@ -54,7 +56,7 @@ class SkillContractTests(unittest.TestCase):
                 "normative_title_protection",
                 "semantic_expansion_trap",
                 "same_structure_token_swap",
-                "dispute_term_hard_gate",
+                "dispute_term_protection",
                 "humanizer_legal_boundary",
             },
             ids,

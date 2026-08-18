@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 
-BLOCKED_TERMS = ("界分", "生成链条", "争点")
+BLOCKED_TERMS = ("界分", "生成链条")
 
 
 def canonical_text_bytes(path: Path) -> bytes:

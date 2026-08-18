@@ -19,10 +19,10 @@
       "expected": "retry_if_chapter_tasks_and_derivation_are_unchanged"
     },
     {
-      "id": "dispute_term_hard_gate",
-      "invalid_term": "争点",
-      "replacement": "争议",
-      "expected": "zero_in_output"
+      "id": "dispute_term_protection",
+      "input_term": "争点",
+      "context": "概括案件或论证中需要集中判断的法律问题",
+      "expected": "preserve_when_contextually_accurate"
     },
     {
       "id": "humanizer_legal_boundary",
